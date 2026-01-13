@@ -1,0 +1,12 @@
+(library
+ (name day1_tests)
+ (libraries day1 hardcaml hardcaml_waveterm core)
+ (inline_tests (deps input.txt golden_solution.txt))
+ (preprocess (pps ppx_jane ppx_hardcaml)))
+
+(rule
+ (deps day1_golden_solution.py input.txt)
+ (target golden_solution.txt)
+ (action
+  (with-stdout-to %{target}
+  (run python3 %{dep:day1_golden_solution.py}))))
