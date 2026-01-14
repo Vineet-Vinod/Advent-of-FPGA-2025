@@ -1,0 +1,4 @@
+(executable
+  (name gen_verilog)
+  (libraries core hardcaml day8)
+  (modules gen_verilog))
