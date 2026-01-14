@@ -50,7 +50,7 @@ make day8   # Generates Verilog -> Compiles C++ model -> Runs simulation (approx
 ```
 
 **3. Synthesize the Design**
-You can also synthesize the designs to check resource usage on a Lattice ECP5 FPGA (requires **Yosys**).
+You can also synthesize the designs to check resource usage on a Lattice ECP5 FPGA (requires **Yosys**). Run these commands only **AFTER** the corresponding day's design has been simulated (the verilog file needs to be generated so that Yosys can synthesize it).
 
 ```bash
 make day1_synth
@@ -82,7 +82,7 @@ The design is implemented as a Finite State Machine (FSM) with three stages:
 
 ## Day 8 Solution
 
-Day 8 involved parsing a list of 3D coordinates, calculating the Euclidean distance between every pair of nodes, and connecting the closest points until all points formed a single component. The core challenge was sorting a massive number of edges and implementing a Union-Find data structure in hardware.
+Day 8 involved parsing a list of 3D coordinates, calculating the Euclidean distance between every pair of nodes, and connecting the closest points until all points formed a single component. The core challenge was sorting a massive number of edges and implementing a Union-Find data structure in hardware. Since the algorithm processes pairs in order of distance and the problem does not provide tie-breaking criteria, I assumed that all pairwise distances are unique.
 
 Unlike Day 1, this solution uses a **hybrid verification flow** (`Hardcaml -> Verilog -> C++ Testbench`). Due to the high complexity (25M-30M simulation cycles), the standard OCaml interpreter was too slow, so I relied on a compiled Verilator model for verification.
 
@@ -105,6 +105,7 @@ This design comprises three main architectural blocks controlled by a central FS
 * Input coordinates are cached in BRAM to save flip-flops for the complex FSM.
 * The engine re-calculates pairwise distances on demand during the **Generate** state, trading computational cycles for significant memory savings.
 
+---
 
 ## Resource Utilizations
 ### Day 1
