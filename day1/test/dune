@@ -2,7 +2,8 @@
  (name day1_tests)
  (libraries day1 hardcaml hardcaml_waveterm core)
  (inline_tests (deps input.txt golden_solution.txt))
- (preprocess (pps ppx_jane ppx_hardcaml)))
+ (preprocess (pps ppx_jane ppx_hardcaml))
+ (modules test_day1))
 
 (rule
  (deps day1_golden_solution.py input.txt)
@@ -10,3 +11,8 @@
  (action
   (with-stdout-to %{target}
   (run python3 %{dep:day1_golden_solution.py}))))
+
+(executable
+  (name gen_verilog)
+  (libraries core hardcaml day1)
+  (modules gen_verilog))

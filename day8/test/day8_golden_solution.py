@@ -1,6 +1,7 @@
 from collections import defaultdict
+from sys import argv
 
-with open("input.txt", "r") as file:
+with open(argv[1], "r") as file:
     lines = [tuple(int(num) for num in line.strip().split(',')) for line in file.readlines()]
 
 class UF:

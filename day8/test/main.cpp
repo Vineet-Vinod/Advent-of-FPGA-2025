@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     tick(top);
 
     // Read and send inputs
-    std::ifstream infile("input.txt");
+    std::ifstream infile("day8/test/input.txt");
     if (!infile.good()) {
         std::cerr << "Error: Could not open input.txt" << std::endl;
         return 1;
@@ -51,10 +51,6 @@ int main(int argc, char** argv) {
     while (!top->finished && cycle < TIMEOUT) {
         tick(top);
         cycle++;
-
-        if (cycle % 10'000'000 == 0) {
-            std::cout << "Cycle: " << cycle << "\r" << std::flush;
-        }
     }
     std::cout << std::endl;
 
@@ -66,7 +62,7 @@ int main(int argc, char** argv) {
 
     // Compare results to golden model - Python script
     // Read in Python results
-    std::ifstream py_res("golden_results.txt");
+    std::ifstream py_res("day8/test/golden_results.txt");
     if (!py_res.good()) {
         std::cerr << "Error: Could not open golden_results.txt" << std::endl;
         return 1;
@@ -85,7 +81,7 @@ int main(int argc, char** argv) {
                     << " but got " << (uint64_t)top->ans1 << std::endl;
         fail = 1;
     } else {
-        std::cout << "PASSED Part 1" << std::endl;
+        std::cout << "PASSED Part 1: HW - " << (uint64_t)top->ans1 << " and PY - " << expected_ans1 << std::endl;
     }
 
     if ((uint64_t)top->ans2 != expected_ans2) {
@@ -93,7 +89,7 @@ int main(int argc, char** argv) {
                     << " but got " << (uint64_t)top->ans2 << std::endl;
         fail = 1;
     } else {
-        std::cout << "PASSED Part 2" << std::endl;
+        std::cout << "PASSED Part 2: HW - " << (uint64_t)top->ans2 << " and PY - " << expected_ans2 << std::endl;
     }
 
     delete top;

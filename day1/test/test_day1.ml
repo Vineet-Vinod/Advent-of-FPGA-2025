@@ -68,12 +68,3 @@ let%expect_test "Day 1 Input" =
     Part 2 PASSED
     |}]
 ;;
-
-let%expect_test "generate verilog" =
-  let scope = Scope.create () in
-  let module C = Circuit.With_interface (Inputs) (Outputs) in
-  let circ = C.create_exn ~name:"day01" (create scope) in
-  Rtl.output Verilog ~output_mode:(To_file "day01.v") circ;
-  printf "Generated day01.v\n";
-  [%expect {| Generated day01.v |}]
-;;
